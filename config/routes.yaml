@@ -1,3 +1,33 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+app_index:
+  path: /
+  controller: App\Controller\MainController::index
+
+app_start_test:
+  path: /start
+  controller: App\Controller\MainController::start
+
+app_start_test_number:
+  path: /start/{test_number}
+  controller: App\Controller\MainController::start
+  requirements:
+    test_number: \d+
+
+app_end_test:
+  path: /end
+  controller: App\Controller\MainController::end
+
+app_answer:
+  path: /answer/{answer_number}
+  controller: App\Controller\MainController::answer
+  requirements:
+    answer_number: \d+
+
+app_next_question:
+  path: /next-question
+  controller: App\Controller\MainController::nextQuestion
+
+app_goto_question:
+  path: /question/{question_number}
+  controller: App\Controller\MainController::gotoQuestion
+  requirements:
+    answer_number: \d+

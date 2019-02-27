@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    {% if results %}
+        <div class="results mb-3">
+            {% include('main/results.html.twig') %}
+        </div>
+    {% endif %}
+
+
+    <div class="start-test mb-3">
+        <h3>{{ 'start_test'|trans }}:</h3>
+        <ul>
+            {% for i in 1..num_tests %}
+                <li><a href="{{ url('app_start_test_number', {test_number: i}) }}">{{ i }}</a></li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url('app_start_test') }}">{{ 'start_random_test'|trans }}</a>
+    </div>
+{% endblock %}

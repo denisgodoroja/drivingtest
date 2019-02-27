@@ -1,0 +1,26 @@
+<div class="results">
+    <h2>{{ 'Results'|trans }}:</h2>
+
+    <table class="results">
+        <tr>
+            <th>{{ 'Question'|trans }}</th>
+            {% for qid in results|keys %}
+                <td>
+                    <a href="{{ url('app_goto_question', {question_number: qid}) }}">{{ qid }}</a>
+                </td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>{{ 'Answer'|trans }}</th>
+            {% for qid,answer in results %}
+                <td>
+                    {% if answer == 1 %}
+                        <span class="correct">Correct</span>
+                    {% elseif answer == -1 %}
+                        <span class="wrong">Wrong</span>
+                    {% endif %}
+                </td>
+            {% endfor %}
+        </tr>
+    </table>
+</div>

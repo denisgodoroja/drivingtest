@@ -1,12 +1,49 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block head_title %}{{ 'page.head_title.welcome'|trans }}{% endblock %} | Time tracker</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}" />
+        {% endblock %}
     </head>
+
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+    {% block body %}
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+                <h1 class="navbar-brand mb-0">
+                    {% block title %}{{ 'page.title.welcome'|trans }}{% endblock %}
+                </h1>
+            </nav>
+
+            {% block messages %}
+                <div class="flash-messages mb-3">
+                    {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ label }}" role="alert">
+                                {{ message|raw }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endblock %}
+
+            <div class="container">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+        <script src="{{ asset('js/script.js') }}"></script>
+    {% endblock %}
+
     </body>
 </html>

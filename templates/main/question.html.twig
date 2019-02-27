@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'page.title.question'|trans({'%id%': question.question_number, '%test%': question.test_number}) }}{% endblock %}
+
+{% block content %}
+    {% include('main/results.html.twig') %}
+
+    <div class="question">
+        {% if time_left %}
+            <div class="timer">{{ 'timer'|trans }}: <span class="clock" seconds="{{ seconds_left }}">{{ time_left }}</span></div>
+        {% endif %}
+
+        <div class="image">
+            <img src="{{ question.filepath }}" />
+        </div>
+
+        <ul class="answer">
+            {% if question.answer == 0 %}
+                {% for x in 1..question.num_answers %}
+                    <li>
+                        <a href="{{ url('app_answer', {answer_number: x}) }}">{{ x }}</a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+            <li>
+                <a href="{{ url('app_next_question') }}">{{ 'Next'|trans }}</a>
+            </li>
+            <li>
+                <a href="{{ url('app_end_test') }}">{{ 'end_test'|trans }}</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

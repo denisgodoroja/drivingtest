@@ -1,0 +1,27 @@
+page:
+  head_title:
+    welcome: 'Autotest'
+  title:
+    welcome: 'Autotest'
+    question: 'Intrebarea %id% (din testul %test%)'
+
+message:
+  quiz_already_started: 'Testul deja e pornit!'
+  no_quiz_running: 'No e nici un test in derulare!'
+  correct_answer: 'Ai raspuns corect!'
+  wrong_answer: 'Raspunsul corect este %i%.'
+  invalid_answer: 'Raspuns nevalid. Mai incearca o data.'
+
+Yes: 'Da'
+No: 'Nu'
+Register: 'Inregistreaza'
+Unregister: 'Dezinregistreaza'
+
+start_test: 'Start test'
+start_random_test: 'Start test aleator'
+Question: 'Intrebare'
+Answer: 'Raspuns'
+Results: 'Rezultatele'
+timer: 'Timp ramas'
+Next: 'Mai departe'
+end_test: 'Termina testul'

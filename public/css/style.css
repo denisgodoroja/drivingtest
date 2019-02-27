@@ -1,0 +1,88 @@
+.question .timer {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 10px 0;
+    text-align: right;
+}
+
+.question ul.answer {
+    margin: 10px 0;
+}
+
+.question ul.answer li {
+    display: inline-block;
+    background: none;
+    list-style: none;
+    padding: 0 20px 0 0;
+    margin: 0;
+}
+
+.question ul.answer li a {
+    display: block;
+    padding: 0 10px;
+    min-width: 46px;
+    height: 46px;
+    line-height: 46px;
+    border-radius: 23px;
+    text-align: center;
+    background: #888;
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.question ul.answer li a:hover {
+    background: #444;
+    text-decoration: none;
+}
+
+table.results th,
+table.results td {
+    text-align: center;
+    border: 1px solid #000;
+}
+
+table.results td {
+    width: 32px;
+}
+
+table.results .correct,
+table.results .wrong {
+    color: #33aa33;
+    background: url('buttons.png') no-repeat;
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    text-indent: 50px;
+}
+
+table.results .wrong {
+    color: #ff3333;
+    background-position: 0 -25px;
+}
+
+
+.start-test ul li {
+    display: inline-block;
+    margin: 0 0 10px;
+}
+
+.start-test ul li a {
+    display: block;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    line-height: 45px;
+    color: #f0f0f0;
+    font-size: 1.2em;
+    background: #808080;
+    overflow: hidden;
+}
+
+.start-test ul li a:hover {
+    text-decoration: none;
+    background: #505050;
+}
