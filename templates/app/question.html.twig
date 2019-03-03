@@ -3,7 +3,7 @@
 {% block title %}{{ 'page.title.question'|trans({'%id%': question.question_number, '%test%': question.test_number}) }}{% endblock %}
 
 {% block content %}
-    {% include('main/results.html.twig') %}
+    {% include('app/results.html.twig') %}
 
     <div class="question">
         {% if time_left %}

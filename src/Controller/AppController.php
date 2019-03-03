@@ -32,7 +32,7 @@ class AppController extends AbstractController
         if (!$test->isRunning()) {
             $test->start($test_number);
         } else {
-            $this->addFlash('error', $t->trans('message.test_already_started'));
+            $this->addFlash('danger', $t->trans('message.test_already_started'));
         }
 
         return $this->redirectToRoute('app_index');
@@ -43,7 +43,7 @@ class AppController extends AbstractController
         if ($test->isRunning()) {
             $test->end();
         } else {
-            $this->addFlash('error', $t->trans('message.no_test_running'));
+            $this->addFlash('danger', $t->trans('message.no_test_running'));
         }
 
         return $this->redirectToRoute('app_index');
@@ -57,7 +57,7 @@ class AppController extends AbstractController
                 $question = $test->getCurrentQuestion();
                 if ($answer_number == $question['correct_answer']) {
                     $test->nextQuestion();
-                    $this->addFlash('notice', $t->trans('message.correct_answer'));
+                    $this->addFlash('success', $t->trans('message.correct_answer'));
                 } else {
                     $this->addFlash('warning', $t->trans('message.wrong_answer', ['%i%' => $question['correct_answer']]));
                     if (!empty($question['explanation'])) {
@@ -65,7 +65,7 @@ class AppController extends AbstractController
                     }
                 }
             } else {
-                $this->addFlash('error', $t->trans('message.invalid_answer'));
+                $this->addFlash('danger', $t->trans('message.invalid_answer'));
             }
         }
 

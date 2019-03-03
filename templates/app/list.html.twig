@@ -3,7 +3,7 @@
 {% block content %}
     {% if results %}
         <div class="results mb-3">
-            {% include('main/results.html.twig') %}
+            {% include('app/results.html.twig') %}
         </div>
     {% endif %}
 
@@ -12,9 +12,9 @@
         <h3>{{ 'start_test'|trans }}:</h3>
         <ul>
             {% for i in 1..num_tests %}
-                <li><a href="{{ url('app_start_test_number', {test_number: i}) }}">{{ i }}</a></li>
+                <li><a href="{{ url('app_start_test', {test_number: i}) }}">{{ i }}</a></li>
             {% endfor %}
         </ul>
-        <a href="{{ url('app_start_test') }}">{{ 'start_random_test'|trans }}</a>
+        <a href="{{ url('app_start_random_test') }}">{{ 'start_random_test'|trans }}</a>
     </div>
 {% endblock %}
