@@ -2,61 +2,61 @@
 
 namespace App\Controller;
 
-use App\Service\Autotest;
+use App\Service\DrivingTest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class MainController extends AbstractController
+class AppController extends AbstractController
 {
-    public function index(Autotest $autotest, TranslatorInterface $t)
+    public function index(DrivingTest $test, TranslatorInterface $t)
     {
-        $results = $this->buildResults($autotest);
+        $results = $this->buildResults($test);
 
-        if ($autotest->isRunning()) {
-            return $this->render('main/question.html.twig', [
+        if ($test->isRunning()) {
+            return $this->render('app/question.html.twig', [
                 'results' => $results,
-                'question' => $autotest->getCurrentQuestion(),
-                'time_left' => $this->formatTimer($autotest->getTimeLeft()),
-                'seconds_left' => $autotest->getTimeLeft(),
+                'question' => $test->getCurrentQuestion(),
+                'time_left' => $this->formatTimer($test->getTimeLeft()),
+                'seconds_left' => $test->getTimeLeft(),
             ]);
         }
 
-        return $this->render('main/list.html.twig', [
+        return $this->render('app/list.html.twig', [
             'results' => $results,
-            'num_tests' => Autotest::NUM_TESTS,
+            'num_tests' => DrivingTest::NUM_TESTS,
         ]);
     }
 
-    public function start($test_number = 0, Autotest $autotest = null, TranslatorInterface $t = null)
+    public function start($test_number = 0, DrivingTest $test = null, TranslatorInterface $t = null)
     {
-        if (!$autotest->isRunning()) {
-            $autotest->start($test_number);
+        if (!$test->isRunning()) {
+            $test->start($test_number);
         } else {
-            $this->addFlash('error', $t->trans('message.quiz_already_started'));
+            $this->addFlash('error', $t->trans('message.test_already_started'));
         }
 
         return $this->redirectToRoute('app_index');
     }
 
-    public function end(Autotest $autotest, TranslatorInterface $t)
+    public function end(DrivingTest $test, TranslatorInterface $t)
     {
-        if ($autotest->isRunning()) {
-            $autotest->end();
+        if ($test->isRunning()) {
+            $test->end();
         } else {
-            $this->addFlash('error', $t->trans('message.no_quiz_running'));
+            $this->addFlash('error', $t->trans('message.no_test_running'));
         }
 
         return $this->redirectToRoute('app_index');
     }
 
-    public function answer($answer_number, Autotest $autotest, TranslatorInterface $t)
+    public function answer($answer_number, DrivingTest $test, TranslatorInterface $t)
     {
-        if ($autotest->isRunning()) {
+        if ($test->isRunning()) {
             $answer_number = (int) $answer_number;
-            if ($autotest->answer($answer_number)) {
-                $question = $autotest->getCurrentQuestion();
+            if ($test->answer($answer_number)) {
+                $question = $test->getCurrentQuestion();
                 if ($answer_number == $question['correct_answer']) {
-                    $autotest->nextQuestion();
+                    $test->nextQuestion();
                     $this->addFlash('notice', $t->trans('message.correct_answer'));
                 } else {
                     $this->addFlash('warning', $t->trans('message.wrong_answer', ['%i%' => $question['correct_answer']]));
@@ -72,34 +72,34 @@ class MainController extends AbstractController
         return $this->redirectToRoute('app_index');
     }
 
-    public function nextQuestion(Autotest $autotest)
+    public function nextQuestion(DrivingTest $test)
     {
-        $autotest->nextQuestion();
+        $test->nextQuestion();
 
         return $this->redirectToRoute('app_index');
     }
 
 
-    public function gotoQuestion($question_number, Autotest $autotest)
+    public function gotoQuestion($question_number, DrivingTest $test)
     {
-        $autotest->nextQuestion($question_number);
+        $test->nextQuestion($question_number);
 
-        if ($autotest->isRunning()) {
+        if ($test->isRunning()) {
             return $this->redirectToRoute('app_index');
         }
 
-        return $this->render('main/question.html.twig', [
-            'results' => $this->buildResults($autotest),
-            'question' => $autotest->getCurrentQuestion(),
+        return $this->render('app/question.html.twig', [
+            'results' => $this->buildResults($test),
+            'question' => $test->getCurrentQuestion(),
             'time_left' => 0,
             'seconds_left' => 0,
         ]);
     }
 
-    protected function buildResults(Autotest $autotest)
+    protected function buildResults(DrivingTest $test)
     {
         $results = [];
-        foreach ($autotest->getQuestions() as $question) {
+        foreach ($test->getQuestions() as $question) {
             if ($question['answer']) {
                 $results[$question['question_number']] = ($question['answer'] == $question['correct_answer'] ? 1 : -1);
             } else {
